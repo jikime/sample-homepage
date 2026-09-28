@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { CircleAlertIcon, LoaderCircleIcon } from "lucide-react"
+import { LoaderCircleIcon } from "lucide-react"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { FieldError } from "@/components/ui/field-error"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -284,14 +285,5 @@ function TextField({
         </p>
       ) : null}
     </div>
-  )
-}
-
-function FieldError({ id, children }: { id: string; children: React.ReactNode }) {
-  return (
-    <p id={id} className="flex items-start gap-1 text-body-sm text-error">
-      <CircleAlertIcon className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
-      <span className="pt-px">{children}</span>
-    </p>
   )
 }
