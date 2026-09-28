@@ -109,7 +109,7 @@ export function LoginForm() {
       <p className="flex flex-wrap items-center justify-center gap-x-2 border-t border-border pt-5 text-body-sm text-sub">
         아직 계정이 없나요?
         <Button asChild variant="link" className="min-h-11 text-body-sm">
-          <Link href="/#apply">가입 신청하기</Link>
+          <Link href="/signup">가입 신청하기</Link>
         </Button>
       </p>
     </form>
