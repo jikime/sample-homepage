@@ -1,26 +1,235 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * digital place 디자인 토큰 (references/design/design.md v0.1)
+ * - 원색(--dp-*)은 여기서만 정의하고, 코드에서는 아래 @theme의 시맨틱 유틸리티만 쓴다.
+ * - 다크 단일 테마. 라이트 전환 없음.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* 1. 색 — 층위 */
+  --dp-bg: #0b0c0f;
+  --dp-surface: #15171c;
+  --dp-surface-raised: #1e2128;
+  /* 보더 */
+  --dp-border: #2a2e36;
+  --dp-border-strong: #6b7280;
+  /* 텍스트 */
+  --dp-text: #f5f5f4;
+  --dp-text-sub: #b9bdc6;
+  --dp-text-muted: #8c929d;
+  --dp-text-disabled: #5a606b;
+  /* 강조(라임) */
+  --dp-accent: #d4ff3a;
+  --dp-accent-hover: #e1ff70;
+  --dp-accent-pressed: #bce62a;
+  --dp-accent-subtle: #2a3310;
+  --dp-on-accent: #0b0c0f;
+  --dp-focus-ring: #d4ff3a;
+  /* 상태 */
+  --dp-success: #3ddc84;
+  --dp-warning: #ffc23d;
+  --dp-error: #ff6b6b;
+  --dp-info: #5ab0ff;
+  --dp-scrim: rgb(0 0 0 / 0.72);
+
+  /* 8. z-index (제안값) */
+  --z-sticky: 100;
+  --z-nav: 200;
+  --z-dropdown: 300;
+  --z-overlay: 400;
+  --z-lightbox: 500;
+  --z-toast: 600;
+
+  /* 레이아웃 */
+  --topbar-height: 56px;
+  --landing-topbar-height: 72px;
+
+  /* shadcn/ui 시맨틱 변수 → 디자인 토큰 */
+  --background: var(--dp-bg);
+  --foreground: var(--dp-text);
+  --card: var(--dp-surface);
+  --card-foreground: var(--dp-text);
+  --popover: var(--dp-surface-raised);
+  --popover-foreground: var(--dp-text);
+  --primary: var(--dp-accent);
+  --primary-foreground: var(--dp-on-accent);
+  --secondary: var(--dp-surface-raised);
+  --secondary-foreground: var(--dp-text);
+  --muted: var(--dp-surface-raised);
+  --muted-foreground: var(--dp-text-muted);
+  --accent: var(--dp-surface-raised);
+  --accent-foreground: var(--dp-text);
+  --destructive: var(--dp-error);
+  --border: var(--dp-border);
+  --input: var(--dp-border-strong);
+  --ring: var(--dp-focus-ring);
+  --radius: 16px;
 }
 
 @theme inline {
+  /* 색 */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--dp-surface);
+  --color-surface-raised: var(--dp-surface-raised);
+  --color-border: var(--border);
+  --color-border-strong: var(--dp-border-strong);
+  --color-sub: var(--dp-text-sub);
+  --color-disabled: var(--dp-text-disabled);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--dp-accent-hover);
+  --color-primary-pressed: var(--dp-accent-pressed);
+  --color-primary-subtle: var(--dp-accent-subtle);
+  --color-success: var(--dp-success);
+  --color-warning: var(--dp-warning);
+  --color-error: var(--dp-error);
+  --color-info: var(--dp-info);
+  --color-scrim: var(--dp-scrim);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-destructive: var(--destructive);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  /* 2. 타이포그래피 — Pretendard Variable · JetBrains Mono 두 가지만 */
+  --font-sans: "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
+  --font-heading: var(--font-sans);
+
+  --text-display-xl: 4.5rem;
+  --text-display-xl--line-height: 4.75rem;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display-xl--font-weight: 800;
+  --text-display-lg: 3rem;
+  --text-display-lg--line-height: 3.375rem;
+  --text-display-lg--letter-spacing: -0.025em;
+  --text-display-lg--font-weight: 800;
+  --text-h1: 2rem;
+  --text-h1--line-height: 2.5rem;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 2rem;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h2--font-weight: 700;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.75rem;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h3--font-weight: 600;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.25rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-caption--letter-spacing: 0.01em;
+  --text-caption--font-weight: 500;
+  --text-overline: 0.75rem;
+  --text-overline--line-height: 1rem;
+  --text-overline--letter-spacing: 0.08em;
+  --text-overline--font-weight: 600;
+  --text-mono: 0.875rem;
+  --text-mono--line-height: 1.25rem;
+  --text-mono--font-weight: 500;
+
+  /* 4. 반경 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* 5. 그림자 — 떠 있는 요소 전용 */
+  --shadow-overlay: 0 16px 48px rgb(0 0 0 / 0.5);
+
+  /* 7. 모션 */
+  --ease-enter: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--topbar-height);
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (min-width: 1024px) {
+    html {
+      scroll-padding-top: var(--landing-topbar-height);
+    }
+  }
+  body {
+    @apply bg-background text-foreground;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* 10. 포커스 — :focus-visible만, 라임 2px + offset 2px */
+  :focus-visible {
+    outline: 2px solid var(--dp-focus-ring);
+    outline-offset: 2px;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  [role="radio"]:not([aria-disabled="true"]) {
+    cursor: pointer;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*
+ * 랜딩 스크롤 등장 — opacity 0→1 + translateY 12px→0, 240ms, 요소당 1회
+ * 스크립트가 켜진 브라우저에서만 숨겨 두므로, JS가 꺼져 있거나 scripting 미디어 쿼리를 모르는 브라우저에서는 그대로 보인다.
+ */
+@layer components {
+  @media (scripting: enabled) {
+    [data-reveal]:not([data-revealed]) {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    [data-reveal] {
+      transition:
+        opacity 240ms var(--ease-enter),
+        transform 240ms var(--ease-enter);
+      transition-delay: calc(var(--reveal-index, 0) * 60ms);
+    }
+  }
+}
+
+/* prefers-reduced-motion → 모든 트랜지션·애니메이션 0ms */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0ms !important;
+    animation-delay: 0ms !important;
+  }
+  [data-reveal]:not([data-revealed]) {
+    opacity: 1;
+    transform: none;
+  }
 }
